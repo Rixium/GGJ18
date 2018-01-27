@@ -10,9 +10,20 @@
         public static sbyte SleepHunger = 12;
         public static sbyte SleepBladder = 15;
 
+        public static sbyte UrinationThirstSpeed = 1;
+        public static sbyte EatThirstSpeed = 2;
+
+        public static sbyte DrinkBladder = 1;
+
         public static sbyte DrinkThirst = -20;
         public static sbyte EatHunger = -20;
         public static sbyte ToiletBladder = -20;
+
+        public static sbyte UrinationSpeed = -4;
+        public static sbyte EatSpeed = -4;
+        public static sbyte DrinkSpeed = -4;
+
+        public static sbyte EndDayMaxedHealthChange = -20;
 
     }
 }

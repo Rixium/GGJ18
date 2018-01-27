@@ -8,6 +8,7 @@ using GGJ.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace GGJ.Screens {
 
@@ -32,6 +33,8 @@ namespace GGJ.Screens {
 
             _buttons.Add(new Button("start", new Vector2(_titleX, _titleY + 100), Color.Black, Color.White, Button.ButtonTag.Start));
             _buttons.Add(new Button("options", new Vector2(_titleX, _titleY + 150), Color.Black, Color.White, Button.ButtonTag.Options));
+
+            MediaPlayer.Play(ContentManager.Instance.Theme);
         }
 
         public override void Update()

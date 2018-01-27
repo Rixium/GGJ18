@@ -14,6 +14,7 @@ namespace GGJ.Games.Objects {
     {
         public ContentManager.ObjectType ObjectType;
         protected Vector2 _position;
+        public bool Destroy;
 
         public GameObject(Vector2 position, ContentManager.ObjectType objectType)
         {
@@ -33,7 +34,7 @@ namespace GGJ.Games.Objects {
 
         public virtual void Paint(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ContentManager.Instance.Pixel, new Rectangle((int)_position.X, (int)_position.Y + ContentManager.Instance.Objects[ObjectType].Height - 5, ContentManager.Instance.Objects[ObjectType].Width, 10), Color.Black * 0.5f);
+            spriteBatch.Draw(ContentManager.Instance.Shadow, new Rectangle((int)_position.X, (int)_position.Y + ContentManager.Instance.Objects[ObjectType].Height - 5, ContentManager.Instance.Objects[ObjectType].Width, 10), Color.Black * 0.5f);
             spriteBatch.Draw(ContentManager.Instance.Objects[ObjectType], _position, Color.White);
         }
 

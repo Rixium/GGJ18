@@ -23,8 +23,14 @@ namespace GGJ.Managers {
         public MouseState MouseState;
         public MouseState LastMouseState;
 
+        public const sbyte CurrentStoryLine = 0;
+
+        public bool Debugging;
+
         public GameScreen GameScreen;
         public GameObject ActiveObject;
+
+        public GameObject UsingObject;
 
         private float _alpha;
         private readonly float _alphaChange = 0.01f;

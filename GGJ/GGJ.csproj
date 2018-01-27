@@ -45,8 +45,13 @@
     <Compile Include="Constants\KeyBindings.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Games\Objects\Bed.cs" />
+    <Compile Include="Games\Objects\Food.cs" />
     <Compile Include="Games\Objects\GameBounds.cs" />
     <Compile Include="Games\Objects\GameObject.cs" />
+    <Compile Include="Games\Objects\Radio.cs" />
+    <Compile Include="Games\Objects\RadioStuff\Line.cs" />
+    <Compile Include="Games\Objects\Sink.cs" />
+    <Compile Include="Games\Objects\Toilet.cs" />
     <Compile Include="Games\Players\Player.cs" />
     <Compile Include="Games\Players\Stats.cs" />
     <Compile Include="Games\TextPopup.cs" />

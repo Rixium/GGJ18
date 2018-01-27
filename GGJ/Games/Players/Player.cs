@@ -14,7 +14,7 @@ namespace GGJ.Games.Players
     {
         private ContentManager.PlayerAnimation _currentAnimation = ContentManager.PlayerAnimation.Idle;
 
-        private readonly float _maxVelocity = 6;
+        private readonly float _maxVelocity = 8;
 
         private readonly float _velocityChange = 0.5f;
 
@@ -100,12 +100,12 @@ namespace GGJ.Games.Players
             _currentXVelocity *= _friction;
             _currentYVelocity *= _friction;
 
-            if (Math.Abs(_currentXVelocity) < .3f)
+            if (Math.Abs(_currentXVelocity) < .3f || GameManager.Instance.UsingObject != null)
             {
                 _currentXVelocity = 0;
             }
 
-            if (Math.Abs(_currentYVelocity) < 0.3f)
+            if (Math.Abs(_currentYVelocity) < 0.3f || GameManager.Instance.UsingObject != null)
             {
                 _currentYVelocity = 0;
             }
@@ -127,15 +127,28 @@ namespace GGJ.Games.Players
                 }
             }
 
-            CheckMovement();
+            if (GameManager.Instance.UsingObject == null)
+            {
+                CheckMovement();
+            }
+
             StatUpdate();
+        }
+
+        public void Stop()
+        {
+            _currFrame = 0;
+            _currentAnimation = ContentManager.PlayerAnimation.Idle;
+            _frameTime = 0;
+            _currentYVelocity = 0;
+            _currentXVelocity = 0;
         }
 
         private void StatUpdate()
         {
+            
             if (_sanityTick == 0)
-            {
-                
+            {   
                 _sanityTick = _maxSanityTime;
                 Stats.AddSanity(-1);
             }
@@ -146,8 +159,19 @@ namespace GGJ.Games.Players
 
             if (_hungerTick == 0)
             {
-                _hungerTick = _maxHungerTime;
-                Stats.AddHunger(1);
+                if (GameManager.Instance.UsingObject != null)
+                {
+                    if (GameManager.Instance.UsingObject.ObjectType != ContentManager.ObjectType.Food)
+                    {
+                        _hungerTick = _maxHungerTime;
+                        Stats.AddHunger(1);
+                    }
+                }
+                else
+                {
+                    _hungerTick = _maxHungerTime;
+                    Stats.AddHunger(1);
+                }
             }
             else
             {
@@ -156,8 +180,19 @@ namespace GGJ.Games.Players
 
             if (_bladderTick == 0)
             {
-                _bladderTick = _maxBladderTime;
-                Stats.AddBladder(1);
+                if (GameManager.Instance.UsingObject != null) {
+                    if (GameManager.Instance.UsingObject.ObjectType != ContentManager.ObjectType.Toilet)
+                    {
+                        _bladderTick = _maxBladderTime;
+                        Stats.AddBladder(1);
+                    }
+                }
+                else
+                {
+                    _bladderTick = _maxBladderTime;
+                    Stats.AddBladder(1);
+                }
+
             }
             else
             {
@@ -166,8 +201,19 @@ namespace GGJ.Games.Players
 
             if (_thirstTick == 0)
             {
-                _thirstTick = _maxThirstTime;
-                Stats.AddThirst(1);
+                if (GameManager.Instance.UsingObject != null)
+                {
+                    if (GameManager.Instance.UsingObject.ObjectType != ContentManager.ObjectType.Water)
+                    {
+                        _thirstTick = _maxThirstTime;
+                        Stats.AddThirst(1);
+                    }
+                }
+                else
+                {
+                    _thirstTick = _maxThirstTime;
+                    Stats.AddThirst(1);
+                }
             }
             else
             {
@@ -241,6 +287,38 @@ namespace GGJ.Games.Players
 
             spriteBatch.Draw(ContentManager.Instance.Shadow,
                 new Rectangle(Bounds.X, Bounds.Y + Bounds.Height - 5, Bounds.Width, 10), Color.Black * 0.3f);
+
+
+            if (GameManager.Instance.UsingObject == null) return;
+
+            var statusRect = new Rectangle((int)Position.X + Bounds.Width / 2 - 50, (int)Position.Y - 20, 100, 15);
+            sbyte statusValue = 0;
+
+            spriteBatch.Draw(ContentManager.Instance.Pixel, statusRect, Color.Black * 0.5f);
+            switch (GameManager.Instance.UsingObject.ObjectType)
+            {
+                case ContentManager.ObjectType.Bed:
+                    break;
+                case ContentManager.ObjectType.Radio:
+                    break;
+                case ContentManager.ObjectType.Toilet:
+                    statusValue = Stats.Bladder;
+                    break;
+                case ContentManager.ObjectType.Water:
+                    statusValue = Stats.Thirst;
+                    break;
+                case ContentManager.ObjectType.Food:
+                    statusValue = Stats.Hunger;
+                    break;
+                case ContentManager.ObjectType.GameBounds:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            var valueRect = new Rectangle(statusRect.X, statusRect.Y, (int)statusValue, 15);
+
+            spriteBatch.Draw(ContentManager.Instance.Pixel, valueRect, Color.White * 0.5f);
         }
     }
 }
