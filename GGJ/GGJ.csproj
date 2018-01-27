@@ -48,6 +48,8 @@
     <Compile Include="Games\Objects\GameBounds.cs" />
     <Compile Include="Games\Objects\GameObject.cs" />
     <Compile Include="Games\Players\Player.cs" />
+    <Compile Include="Games\Players\Stats.cs" />
+    <Compile Include="Games\TextPopup.cs" />
     <Compile Include="Managers\ContentManager.cs" />
     <Compile Include="Managers\GameConstants.cs" />
     <Compile Include="Managers\GameManager.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Screens\Screen.cs" />
     <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\StatusBar.cs" />
+    <Compile Include="UI\UIComponent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

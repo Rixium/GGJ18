@@ -32,7 +32,7 @@ namespace GGJ.Games.Players
             (int) Position.Y + ContentManager.Instance.PlayerAnimations[ContentManager.PlayerAnimation.Idle][0].Height -
             30, ContentManager.Instance.PlayerAnimations[ContentManager.PlayerAnimation.Idle][0].Width, 30);
 
-        public Vector2 Position { get; private set; }
+        public Vector2 Position;
 
         public void Update()
         {
@@ -53,21 +53,40 @@ namespace GGJ.Games.Players
 
             if (newPosition.X != Position.X || newPosition.Y != Position.Y)
             {
-                if (GameManager.Instance.GameScreen.CanMove(new Rectangle((int) (Bounds.X + _currentXVelocity),
+                if (GameManager.Instance.GameScreen.CanMove(new Rectangle((int) (Bounds.X),
                     (int) (Bounds.Y + _currentYVelocity), Bounds.Width, Bounds.Height)))
                 {
-                    Position = newPosition;
+                    Position.Y = newPosition.Y;
                 }
                 else
                 {
-                    _currentXVelocity = 0;
                     _currentYVelocity = 0;
+                }
+
+                if (GameManager.Instance.GameScreen.CanMove(new Rectangle((int) (Bounds.X + _currentXVelocity),
+                    (int) (Bounds.Y), Bounds.Width, Bounds.Height)))
+                {
+                    Position.X = newPosition.X;
+                } else
+                {
+                    _currentXVelocity = 0;
+
                 }
             }
 
 
             _currentXVelocity *= _friction;
             _currentYVelocity *= _friction;
+
+            if (Math.Abs(_currentXVelocity) < .3f)
+            {
+                _currentXVelocity = 0;
+            }
+
+            if (Math.Abs(_currentYVelocity) < 0.3f)
+            {
+                _currentYVelocity = 0;
+            }
 
             CheckMovement();
         }

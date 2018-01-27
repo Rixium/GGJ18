@@ -32,6 +32,8 @@ namespace GGJ.Managers {
         public KeyboardState KeyState;
         public KeyboardState LastKeyState;
 
+        public int CurrentDay = 0;
+
         public void Update()
         {
             MouseState = Mouse.GetState();
