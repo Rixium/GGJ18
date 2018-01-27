@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using GGJ.Constants;
 using GGJ.Games;
 using GGJ.Games.Objects;
 using GGJ.Games.Players;
@@ -12,6 +7,7 @@ using GGJ.Managers;
 using GGJ.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace GGJ.Screens {
 
@@ -23,9 +19,17 @@ namespace GGJ.Screens {
         private List<GameObject> gameObjects = new List<GameObject>();
         public Player Player;
 
+        private bool _changingDay;
+        private bool _fadeIn;
+        private bool _fadeOut = true;
+        private float _currentAlpha;
+        private float _alphaChange = 0.01f;
+        private byte _waitTimer;
+        private readonly byte _maxWait = 100;
+
         private readonly int _maxInteractDistance = 100;
 
-        private List<UiComponent> uiComponents = new List<UiComponent>();
+        public List<UiComponent> UiComponents = new List<UiComponent>();
 
         public GameScreen()
         {
@@ -40,19 +44,29 @@ namespace GGJ.Screens {
 
             Player = new Player();
 
-            uiComponents.Add(new TextPopup(RoomName));
+            UiComponents.Add(new TextPopup(RoomName, true));
 
-            uiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 300), "Health"));
-            uiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 250), "Sanity"));
-            uiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 200), "Hunger"));
-            uiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 150), "Thirst"));
-            uiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 100), "Bladder"));
-            NextDay();
+            UiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 300), "Health", StatusBar.StatusType.Health));
+            UiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 250), "Sanity", StatusBar.StatusType.Sanity));
+            UiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 200), "Hunger", StatusBar.StatusType.Hunger));
+            UiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 150), "Thirst", StatusBar.StatusType.Thirst));
+            UiComponents.Add(new StatusBar(new Vector2(20, GameConstants.GameHeight - 100), "Bladder", StatusBar.StatusType.Bladder));
+
+            UiComponents.Add(new TextPopup("Day " + ++GameManager.Instance.CurrentDay, true));
         }
 
-        private void NextDay()
+        public void NextDay()
         {
-            uiComponents.Add(new TextPopup("Day " + ++GameManager.Instance.CurrentDay));
+            _changingDay = true;
+            _fadeOut = true;
+
+            foreach (var c in new List<UiComponent>(UiComponents))
+            {
+                if (c.GetType() != typeof(TextPopup)) continue;
+
+                var tp = (TextPopup) c;
+                tp.StartFade();
+            }
         }
 
         public bool CanMove(Rectangle rect)
@@ -70,40 +84,94 @@ namespace GGJ.Screens {
 
         public override void Update()
         {
-            base.Update();
-
-            float distance;
-            var interacting = false;
-
-            foreach (var o in gameObjects)
+            if (!_changingDay)
             {
-                o.Update();
-                distance = Vector2.Distance(
-                    new Vector2(Player.Bounds.X + Player.Bounds.Width / 2, Player.Bounds.Y + Player.Bounds.Height / 2),
-                    new Vector2(o.Bounds.X + o.Bounds.Width / 2, o.Bounds.Y + o.Bounds.Height / 2));
+                base.Update();
 
-                if (!(distance < _maxInteractDistance) || interacting) continue;
+                float distance;
+                var interacting = false;
 
-                interacting = true;
-                GameManager.Instance.ActiveObject = o;
-            }
-
-            if (!interacting)
-            {
-                GameManager.Instance.ActiveObject = null;
-            }
-
-            foreach (var c in new List<UiComponent>(uiComponents))
-            {
-                c.Update();
-
-                if (c.Destroy)
+                foreach (var o in gameObjects)
                 {
-                    uiComponents.Remove(c);
+                    o.Update();
+                    distance = Vector2.Distance(
+                        new Vector2(Player.Bounds.X + Player.Bounds.Width / 2,
+                            Player.Bounds.Y + Player.Bounds.Height / 2),
+                        new Vector2(o.Bounds.X + o.Bounds.Width / 2, o.Bounds.Y + o.Bounds.Height / 2));
+
+                    if (!(distance < _maxInteractDistance) || interacting) continue;
+
+                    interacting = true;
+                    GameManager.Instance.ActiveObject = o;
+
+                    if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.USE) &&
+                        GameManager.Instance.LastKeyState.IsKeyUp(KeyBindings.USE))
+                    {
+                        o.Use();
+                    }
+                }
+
+                if (!interacting)
+                {
+                    GameManager.Instance.ActiveObject = null;
+                }
+
+                
+
+                Player.Update();
+            }
+            else
+            {
+                if (_waitTimer <= 0)
+                {
+                    if (_fadeOut)
+                    {
+                        if (_currentAlpha + _alphaChange <= 1)
+                        {
+                            _currentAlpha += _alphaChange;
+                        }
+                        else
+                        {
+                            if (GameManager.Instance.CurrentDay % 3 == 0) {
+                                Player.NextFace();
+                            }
+
+                            Player.Stats.AddSanity(GameConstants.SleepSanity);
+                            Player.Stats.AddThirst(GameConstants.SleepThirst);
+                            Player.Stats.AddBladder(GameConstants.SleepBladder);
+                            Player.Stats.AddHunger(GameConstants.SleepHunger);
+
+                            _fadeIn = true;
+                            _fadeOut = false;
+                            _waitTimer = _maxWait;
+                        }
+                    }
+                    else if (_fadeIn)
+                    {
+                        if (_currentAlpha - _alphaChange >= 0)
+                        {
+                            _currentAlpha -= _alphaChange;
+                        }
+                        else
+                        {
+                            _changingDay = false;
+                            UiComponents.Add(new TextPopup("Day " + ++GameManager.Instance.CurrentDay, true));
+                        }
+                    }
+                }
+                else
+                {
+                    _waitTimer--;
                 }
             }
 
-            Player.Update();
+            foreach (var c in new List<UiComponent>(UiComponents)) {
+                c.Update();
+
+                if (c.Destroy) {
+                    UiComponents.Remove(c);
+                }
+            }
         }
 
         public override void Paint(SpriteBatch spriteBatch)
@@ -139,9 +207,14 @@ namespace GGJ.Screens {
                 spriteBatch.DrawString(ContentManager.Instance.Fonts[ContentManager.FontTypes.Game], o.ToString(), new Vector2(rect.X + padding, rect.Y + padding), Color.White);
             }
 
-            foreach (var c in new List<UiComponent>(uiComponents))
+            foreach (var c in new List<UiComponent>(UiComponents))
             {
                 c.Paint(spriteBatch);
+            }
+
+            if (_changingDay)
+            {
+                spriteBatch.Draw(ContentManager.Instance.Pixel, new Rectangle(0, 0, GameConstants.GameWidth, GameConstants.GameHeight), Color.Black * _currentAlpha);
             }
 
             spriteBatch.End();

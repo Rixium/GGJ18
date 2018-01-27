@@ -1,4 +1,5 @@
-﻿using GGJ.Managers;
+﻿using GGJ.Constants;
+using GGJ.Managers;
 using Microsoft.Xna.Framework;
 
 namespace GGJ.Games.Objects {
@@ -12,7 +13,13 @@ namespace GGJ.Games.Objects {
 
         public override string ToString()
         {
-            return "Bed";
+            return "Sleep [" + KeyBindings.USE + "]";
         }
+
+        public override void Use()
+        {
+            GameManager.Instance.GameScreen.NextDay();
+        }
+
     }
 }

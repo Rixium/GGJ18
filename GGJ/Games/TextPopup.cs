@@ -15,6 +15,7 @@ namespace GGJ.Games {
 
         private bool _fadeIn = true;
         private bool _fadeOut;
+        private bool _shouldFadeOut;
 
         private short _waitTimer = 0;
         private const short _maxWait = 100;
@@ -23,10 +24,10 @@ namespace GGJ.Games {
         private readonly float _textWidth;
         private readonly float _textHeight;
 
-        public TextPopup(string text)
+        public TextPopup(string text, bool shouldFadeOut)
         {
             _text = text;
-
+            _shouldFadeOut = shouldFadeOut;
 
             _textWidth = ContentManager.Instance.Fonts[ContentManager.FontTypes.Game].MeasureString(_text).X;
             _textHeight = ContentManager.Instance.Fonts[ContentManager.FontTypes.Game].MeasureString(_text).X;
@@ -45,7 +46,7 @@ namespace GGJ.Games {
                     _fadeIn = false;
                     _waitTimer = _maxWait;
                 }
-            } else if (_fadeOut)
+            } else if (_fadeOut && _shouldFadeOut)
             {
                 if (_alpha - _alphaChange >= 0)
                 {
@@ -66,6 +67,13 @@ namespace GGJ.Games {
             {
                 _fadeOut = true;
             }
+        }
+
+        public void StartFade()
+        {
+            _fadeIn = false;
+            _fadeOut = true;
+            _waitTimer = 0;
         }
 
         public override void Paint(SpriteBatch spriteBatch)

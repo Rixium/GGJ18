@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,12 @@ namespace GGJ.Games.Objects {
             spriteBatch.Draw(ContentManager.Instance.Pixel, new Rectangle((int)_position.X, (int)_position.Y + ContentManager.Instance.Objects[ObjectType].Height - 5, ContentManager.Instance.Objects[ObjectType].Width, 10), Color.Black * 0.5f);
             spriteBatch.Draw(ContentManager.Instance.Objects[ObjectType], _position, Color.White);
         }
+
+        public virtual void Use()
+        {
+
+        }
+
     }
 
 }

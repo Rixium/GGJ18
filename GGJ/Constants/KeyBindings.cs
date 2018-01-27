@@ -10,6 +10,8 @@ namespace GGJ.Constants {
         public static Keys UP = Keys.W;
         public static Keys DOWN = Keys.S;
 
+        public static Keys USE = Keys.E;
+
     }
 
 }

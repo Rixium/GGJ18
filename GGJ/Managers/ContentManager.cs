@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,8 +53,13 @@ namespace GGJ.Managers {
         public Dictionary<MouseType, Texture2D> Mice = new Dictionary<MouseType, Texture2D>();
         public Dictionary<ObjectType, Texture2D> Objects = new Dictionary<ObjectType, Texture2D>();
 
-        public Dictionary<PlayerAnimation, Texture2D[]> PlayerAnimations =
+        public Dictionary<PlayerAnimation, Texture2D[]> PlayerBodyAnimations =
             new Dictionary<PlayerAnimation, Texture2D[]>();
+
+        public Dictionary<PlayerAnimation, Texture2D[]> PlayerLegAnimations =
+            new Dictionary<PlayerAnimation, Texture2D[]>();
+
+        public Texture2D[] PlayerHeads = new Texture2D[6];
 
         // Scene
         public Texture2D Room;
@@ -81,19 +87,48 @@ namespace GGJ.Managers {
             Mice.Add(MouseType.Pointer, _content.Load<Texture2D>("Textures/Other/Cursors/mainCursor"));
             Mice.Add(MouseType.Hand, _content.Load<Texture2D>("Textures/Other/Cursors/handCursor"));
 
-            Room = content.Load<Texture2D>("Textures/Scene/room");
-            RoomFront = content.Load<Texture2D>("Textures/Scene/roomFront");
+            Room = _content.Load<Texture2D>("Textures/Scene/room");
+            RoomFront = _content.Load<Texture2D>("Textures/Scene/roomFront");
 
             Objects.Add(ObjectType.Bed, _content.Load<Texture2D>("Textures/Objects/bed"));
-            MenuBlip = content.Load<SoundEffect>("Sounds/menuBlip");
+            MenuBlip = _content.Load<SoundEffect>("Sounds/menuBlip");
 
-            var idleAnimationFrames = new[]
+            var idleLegAnimationFrames = new[]
             {
-                content.Load<Texture2D>("Textures/Man/manIdle"),
-                content.Load<Texture2D>("Textures/Man/manIdle2")
+                _content.Load<Texture2D>("Textures/Man/Legs/manIdle1"),
+                _content.Load<Texture2D>("Textures/Man/Legs/manIdle2")
             };
 
-            PlayerAnimations.Add(PlayerAnimation.Idle, idleAnimationFrames);
+            var walkLegAnimationFrames = new Texture2D[9];
+
+            for (var i = 1; i <= walkLegAnimationFrames.Length; i++)
+            {
+                walkLegAnimationFrames[i - 1] = _content.Load<Texture2D>("Textures/Man/Legs/manWalk" + i);
+            }
+
+            var idleBodyAnimationFrames = new[]
+            {
+                _content.Load<Texture2D>("Textures/Man/Body/manIdle1"),
+                _content.Load<Texture2D>("Textures/Man/Body/manIdle2")
+            };
+
+            var walkBodyAnimationFrames = new Texture2D[9];
+
+            for (var i = 1; i <= walkBodyAnimationFrames.Length; i++) {
+                walkBodyAnimationFrames[i - 1] = _content.Load<Texture2D>("Textures/Man/Body/" + i);
+            }
+
+
+            for (var i = 1; i < PlayerHeads.Length; i++)
+            {
+                PlayerHeads[i - 1] = _content.Load<Texture2D>("Textures/Man/Head/head" + i);
+            }
+
+
+            PlayerLegAnimations.Add(PlayerAnimation.Idle, idleLegAnimationFrames);
+            PlayerLegAnimations.Add(PlayerAnimation.Walk, walkLegAnimationFrames);
+            PlayerBodyAnimations.Add(PlayerAnimation.Idle, idleBodyAnimationFrames);
+            PlayerBodyAnimations.Add(PlayerAnimation.Walk, walkBodyAnimationFrames);
 
             Shadow = _content.Load<Texture2D>("Textures/Other/shadow");
         }
