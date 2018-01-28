@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/Music/theme.mp3</SourceFile>
-  <SourceTime>2018-01-27T16:25:04.5569115+00:00</SourceTime>
-  <DestFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/bin/DesktopGL/Music/theme.xnb</DestFile>
-  <DestTime>2018-01-27T16:27:46.1292407+00:00</DestTime>
+  <SourceFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/Music/theme.mp3</SourceFile>
+  <SourceTime>2018-01-27T14:50:03.4333734+00:00</SourceTime>
+  <DestFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/bin/DesktopGL/Music/theme.xnb</DestFile>
+  <DestTime>2018-01-28T12:27:46.9430799+00:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>SongProcessor</Processor>
@@ -15,6 +15,6 @@
   <Dependencies />
   <BuildAsset />
   <BuildOutput>
-    <string>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/bin/DesktopGL/Music/theme.ogg</string>
+    <string>C:/Users/Potte/source/repos/GGJ/GGJ/Content/bin/DesktopGL/Music/theme.ogg</string>
   </BuildOutput>
 </PipelineBuildEvent>

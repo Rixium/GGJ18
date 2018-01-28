@@ -90,19 +90,55 @@ namespace GGJ.Games.Players
             newPosition.Y += _currentYVelocity;
 
             if (newPosition.X != Position.X || newPosition.Y != Position.Y) {
-                if (GameManager.Instance.GameScreen.CanMove(new Rectangle((int)(Bounds.X),
-                    (int)(Bounds.Y + _currentYVelocity), Bounds.Width, Bounds.Height))) {
-                    Position.Y = newPosition.Y;
-                } else {
-                    _currentYVelocity = 0;
+                if (newPosition.Y != Position.Y)
+                {
+
+                    Rectangle collideRect = Bounds;
+
+                    if (newPosition.Y < Position.Y)
+                    {
+                        collideRect = new Rectangle((Bounds.X),
+                            (int)Math.Floor(Bounds.Y + _currentYVelocity), Bounds.Width, Bounds.Height);
+                    }
+                    else
+                    {
+                        collideRect = new Rectangle((Bounds.X),
+                            (int)Math.Ceiling(Bounds.Y + _currentYVelocity), Bounds.Width, Bounds.Height);
+                    }
+
+                    if (GameManager.Instance.GameScreen.CanMove(collideRect))
+                    {
+                        Position.Y = newPosition.Y;
+                    }
+                    else
+                    {
+                        _currentYVelocity = 0;
+                    }
                 }
 
-                if (GameManager.Instance.GameScreen.CanMove(new Rectangle((int)(Bounds.X + _currentXVelocity),
-                    (int)(Bounds.Y), Bounds.Width, Bounds.Height))) {
-                    Position.X = newPosition.X;
-                } else {
-                    _currentXVelocity = 0;
+                if (newPosition.X != Position.X)
+                {
+                    Rectangle collideRect = Bounds;
 
+                    if (newPosition.X < Position.X)
+                    {
+                        collideRect = new Rectangle((int) Math.Floor(Bounds.X + _currentXVelocity),
+                            (int) (Bounds.Y), Bounds.Width, Bounds.Height);
+                    } else
+                    {
+                        collideRect = new Rectangle((int) Math.Ceiling(Bounds.X + _currentXVelocity),
+                            (int) (Bounds.Y), Bounds.Width, Bounds.Height);
+                    }
+
+                    if (GameManager.Instance.GameScreen.CanMove(collideRect))
+                    {
+                        Position.X = newPosition.X;
+                    }
+                    else
+                    {
+                        _currentXVelocity = 0;
+
+                    }
                 }
             }
 

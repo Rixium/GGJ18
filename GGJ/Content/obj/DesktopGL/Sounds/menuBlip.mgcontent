@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/Sounds/menuBlip.wav</SourceFile>
-  <SourceTime>2018-01-27T16:25:04.5589129+00:00</SourceTime>
-  <DestFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/bin/DesktopGL/Sounds/menuBlip.xnb</DestFile>
-  <DestTime>2018-01-27T16:27:33.5118379+00:00</DestTime>
+  <SourceFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/Sounds/menuBlip.wav</SourceFile>
+  <SourceTime>2018-01-26T20:06:12.4268206+00:00</SourceTime>
+  <DestFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/bin/DesktopGL/Sounds/menuBlip.xnb</DestFile>
+  <DestTime>2018-01-28T12:27:30.9149629+00:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

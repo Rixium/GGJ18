@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/Textures/Woman/Head/head1.png</SourceFile>
-  <SourceTime>2018-01-28T09:32:22.1294138+00:00</SourceTime>
-  <DestFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/bin/DesktopGL/Textures/Woman/Head/head1.xnb</DestFile>
-  <DestTime>2018-01-28T09:32:26.7196883+00:00</DestTime>
+  <SourceFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/Textures/Woman/Head/head1.png</SourceFile>
+  <SourceTime>2018-01-28T12:26:55.3543946+00:00</SourceTime>
+  <DestFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/bin/DesktopGL/Textures/Woman/Head/head1.xnb</DestFile>
+  <DestTime>2018-01-28T12:27:49.1061326+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

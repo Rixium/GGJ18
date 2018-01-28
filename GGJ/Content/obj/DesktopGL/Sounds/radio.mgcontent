@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/Sounds/radio.wav</SourceFile>
-  <SourceTime>2018-01-27T20:29:20.1475892+00:00</SourceTime>
-  <DestFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/bin/DesktopGL/Sounds/radio.xnb</DestFile>
-  <DestTime>2018-01-27T20:29:45.6394498+00:00</DestTime>
+  <SourceFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/Sounds/radio.wav</SourceFile>
+  <SourceTime>2018-01-28T12:26:55.336347+00:00</SourceTime>
+  <DestFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/bin/DesktopGL/Sounds/radio.xnb</DestFile>
+  <DestTime>2018-01-28T12:27:48.3421489+00:00</DestTime>
   <Importer>WavImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

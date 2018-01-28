@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/Textures/Other/splash.png</SourceFile>
-  <SourceTime>2018-01-27T19:31:46.2258511+00:00</SourceTime>
-  <DestFile>C:/Users/Potte/OneDrive/Projects/GGJ18/GGJ/Content/bin/DesktopGL/Textures/Other/splash.xnb</DestFile>
-  <DestTime>2018-01-27T19:31:49.1849172+00:00</DestTime>
+  <SourceFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/Textures/Other/splash.png</SourceFile>
+  <SourceTime>2018-01-28T12:26:55.3503839+00:00</SourceTime>
+  <DestFile>C:/Users/Potte/source/repos/GGJ/GGJ/Content/bin/DesktopGL/Textures/Other/splash.xnb</DestFile>
+  <DestTime>2018-01-28T12:27:47.9946835+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
