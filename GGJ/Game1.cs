@@ -33,6 +33,8 @@ namespace GGJ
             graphics.PreferredBackBufferHeight = GameConstants.GameHeight;
             graphics.ApplyChanges();
 
+            Fullscreen();
+
             ContentManager.Instance.Load(Content);
             
             // Starting menu screen.
@@ -46,6 +48,14 @@ namespace GGJ
         public void Quit()
         {
             Exit();
+        }
+
+        public bool Fullscreen()
+        {
+            graphics.IsFullScreen = !graphics.IsFullScreen;
+            graphics.ApplyChanges();
+
+            return graphics.IsFullScreen;
         }
 
         protected override void Update(GameTime gameTime)

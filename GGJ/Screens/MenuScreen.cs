@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using GGJ.Games.Players;
 using GGJ.Managers;
 using GGJ.UI;
 using Microsoft.Xna.Framework;
@@ -100,7 +101,7 @@ namespace GGJ.Screens {
                         switch (b.Tag)
                         {
                             case Button.ButtonTag.Start:
-                                ScreenManager.Instance.ChangeScreen(new GameScreen(Game));
+                                ScreenManager.Instance.ChangeScreen(new CharacterSelectScreen(Game));
                                 break;
                             case Button.ButtonTag.Options:
                                 ScreenManager.Instance.ChangeScreen(new OptionsScreen(Game));

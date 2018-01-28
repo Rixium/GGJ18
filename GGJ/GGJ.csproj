@@ -61,6 +61,7 @@
     <Compile Include="Managers\ScreenManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Screens\CharacterSelectScreen.cs" />
     <Compile Include="Screens\EndScreen.cs" />
     <Compile Include="Screens\GameScreen.cs" />
     <Compile Include="Screens\HowToPlayScreen.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\FastMessage.cs" />
     <Compile Include="UI\MessagePopup.cs" />
+    <Compile Include="UI\PictureButton.cs" />
     <Compile Include="UI\Slider.cs" />
     <Compile Include="UI\StatusBar.cs" />
     <Compile Include="UI\UIComponent.cs" />

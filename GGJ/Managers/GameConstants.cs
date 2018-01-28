@@ -25,7 +25,7 @@
 
         public static sbyte EndDayMaxedHealthChange = -20;
 
-        public static float MusicLevel = 0.3f;
+        public static float MusicLevel = 0.15f;
         public static float SoundLevel = 0.8f;
         public static float Difficulty = 0.8f;
 

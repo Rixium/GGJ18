@@ -46,7 +46,7 @@ namespace GGJ.Screens
 
         public List<UiComponent> UiComponents = new List<UiComponent>();
 
-        public GameScreen(Game1 game) : base(game)
+        public GameScreen(Game1 game, Player.Gender gender) : base(game)
         {
             GameManager.Instance.GameScreen = this;
 
@@ -66,7 +66,7 @@ namespace GGJ.Screens
             gameObjects.Add(new GameBounds(new Rectangle(436, 0, 50, 530)));
             gameObjects.Add(new GameBounds(new Rectangle(436, 600, 50, 530)));
 
-            Player = new Player();
+            Player = new Player(gender);
 
             UiComponents.Add(new TextPopup(RoomName, true));
 
@@ -87,6 +87,7 @@ namespace GGJ.Screens
             UiComponents.Add(new TextPopup("Day " + ++GameManager.Instance.CurrentDay, true));
 
             MediaPlayer.Volume = GameConstants.MusicLevel;
+            MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(ContentManager.Instance.Theme);
         }
 
@@ -369,6 +370,11 @@ namespace GGJ.Screens
                 GameManager.Instance.LastKeyState.IsKeyUp(KeyBindings.Pause))
             {
                 Pause();
+            }
+
+            if (GameManager.Instance.KeyState.IsKeyDown(Keys.F1) && GameManager.Instance.LastKeyState.IsKeyUp(Keys.F1))
+            {
+                Game.Fullscreen();
             }
         }
 

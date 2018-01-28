@@ -19,6 +19,8 @@ namespace GGJ.Screens {
                 Color.Black * 0, Color.White, Button.ButtonTag.Finish));
             _buttons.Add(new Button("keybindings", new Vector2(GameConstants.GameWidth / 2 - ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui].MeasureString("keybindings").X / 2 - 10, 100),
                 Color.Black * 0, Color.White, Button.ButtonTag.Start));
+            _buttons.Add(new Button("fullscreen", new Vector2(GameConstants.GameWidth / 2 - ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui].MeasureString("fullscreen").X / 2 - 10, GameConstants.GameHeight - 150),
+                Color.Black * 0, Color.White, Button.ButtonTag.Toggle));
 
             _sliders.Add(new Slider(new Vector2(GameConstants.GameWidth / 2 - 50, 250), "Music Level", Slider.SliderType.Music));
 
@@ -71,6 +73,18 @@ namespace GGJ.Screens {
                                 break;
                             case Button.ButtonTag.Finish:
                                 ScreenManager.Instance.ChangeScreen(new MenuScreen(Game));
+                                break;
+                            case Button.ButtonTag.Toggle:
+                                var full = Game.Fullscreen();
+                                if (full)
+                                {
+                                    b.SetText("Fullscreen");
+                                }
+                                else
+                                {
+                                    b.SetText("Windowed");
+                                }
+
                                 break;
                         }
                     }

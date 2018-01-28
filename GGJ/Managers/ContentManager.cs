@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GGJ.Games.Objects.RadioStuff;
+using GGJ.Games.Players;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
@@ -72,7 +73,7 @@ namespace GGJ.Managers {
         public List<Line> storyLines = new List<Line>();
 
         public Texture2D[] Food = new Texture2D[16];
-        public Texture2D[] PlayerHeads = new Texture2D[5];
+        public Dictionary<Player.Gender, Texture2D[]> PlayerHeads = new Dictionary<Player.Gender, Texture2D[]>();
 
         // Scene
         public Texture2D Room;
@@ -88,6 +89,9 @@ namespace GGJ.Managers {
         public SoundEffect Toilet;
         public SoundEffect Radio;
         public SoundEffect Bed;
+
+        public Texture2D femaleButton;
+        public Texture2D maleButton;
 
 
         // Music
@@ -158,10 +162,17 @@ namespace GGJ.Managers {
                 walkBodyAnimationFrames[i - 1] = _content.Load<Texture2D>("Textures/Man/Body/" + i);
             }
 
-
-            for (var i = 1; i <= PlayerHeads.Length; i++)
+            PlayerHeads.Add(Player.Gender.Male, new Texture2D[5]);
+            
+            for (var i = 1; i <= PlayerHeads[Player.Gender.Male].Length; i++)
             {
-                PlayerHeads[i - 1] = _content.Load<Texture2D>("Textures/Man/Head/head" + i);
+                PlayerHeads[Player.Gender.Male][i - 1] = _content.Load<Texture2D>("Textures/Man/Head/head" + i);
+            }
+
+            PlayerHeads.Add(Player.Gender.Female, new Texture2D[5]);
+
+            for (var i = 1; i <= PlayerHeads[Player.Gender.Female].Length; i++) {
+                PlayerHeads[Player.Gender.Female][i - 1] = _content.Load<Texture2D>("Textures/Woman/Head/head" + i);
             }
 
             for (var i = 1; i <= Food.Length; i++)
@@ -222,6 +233,10 @@ namespace GGJ.Managers {
 
             RadioSpeech = _content.Load<Texture2D>("Textures/Other/radioSpeech");
             Splash = _content.Load<Texture2D>("Textures/Other/splash");
+
+            maleButton = _content.Load<Texture2D>("Textures/Other/manButton");
+            femaleButton = _content.Load<Texture2D>("Textures/Other/womanButton");
+
         }
     }
 }

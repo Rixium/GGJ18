@@ -15,7 +15,8 @@ namespace GGJ.UI {
             Start,
             Options,
             Finish,
-            HowToPlay
+            HowToPlay,
+            Toggle
         }
 
         public ButtonTag Tag;
@@ -26,12 +27,24 @@ namespace GGJ.UI {
         private Color _fontColor;
 
         private readonly int _buttonPadding = 10;
-        private readonly int _textWidth;
-        private readonly int _textHeight;
+        private int _textWidth;
+        private int _textHeight;
 
+        private Vector2 _pos;
         private bool _hovering;
 
-        public Button(string text, Vector2 pos, Color backgroundColor, Color fontColor, ButtonTag tag) {
+        public void SetText(string text)
+        {
+            _text = text;
+            _textWidth = (int)ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui].MeasureString(_text).X;
+            _textHeight = (int)ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui].MeasureString(_text).Y;
+
+            Bounds = new Rectangle((int)_pos.X, (int)_pos.Y, ((_buttonPadding * 2) + _textWidth), ((_buttonPadding * 2) + _textHeight));
+        }
+
+        public Button(string text, Vector2 pos, Color backgroundColor, Color fontColor, ButtonTag tag)
+        {
+            _pos = pos;
             _text = text;
             _backgroundColor = backgroundColor;
             _fontColor = fontColor;
@@ -49,7 +62,7 @@ namespace GGJ.UI {
 
         }
 
-        public Rectangle Bounds { get; }
+        public Rectangle Bounds { get; set; }
 
         public bool Hovering {
             get => _hovering;

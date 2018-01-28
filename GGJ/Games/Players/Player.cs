@@ -43,8 +43,17 @@ namespace GGJ.Games.Players
 
         public Stats Stats = new Stats();
 
-        public Player()
+        public enum Gender
         {
+            Male,
+            Female
+        }
+
+        private Gender _gender;
+
+        public Player(Gender gender)
+        {
+            _gender = gender;
             Position = new Vector2(916, 285);
         }
 
@@ -235,7 +244,7 @@ namespace GGJ.Games.Players
 
         public void NextFace()
         {
-            if (_currentPlayerHead < ContentManager.Instance.PlayerHeads.Length - 1) {
+            if (_currentPlayerHead < ContentManager.Instance.PlayerHeads[_gender].Length - 1) {
                 _currentPlayerHead++;
             }
         }
@@ -278,8 +287,9 @@ namespace GGJ.Games.Players
                 new Rectangle(0, 0, ContentManager.Instance.PlayerBodyAnimations[_currentAnimation][_currFrame].Width, ContentManager.Instance.PlayerBodyAnimations[_currentAnimation][_currFrame].Height),
                 Color.White, 0, Vector2.Zero, 1, effect, 1);
 
-            spriteBatch.Draw(ContentManager.Instance.PlayerHeads[_currentPlayerHead], Position,
-                new Rectangle(0, 0, ContentManager.Instance.PlayerHeads[_currentPlayerHead].Width, ContentManager.Instance.PlayerHeads[_currentPlayerHead].Height),
+
+            spriteBatch.Draw(ContentManager.Instance.PlayerHeads[_gender][_currentPlayerHead], Position,
+                new Rectangle(0, 0, ContentManager.Instance.PlayerHeads[_gender][_currentPlayerHead].Width, ContentManager.Instance.PlayerHeads[_gender][_currentPlayerHead].Height),
                 Color.White, 0, Vector2.Zero, 1, effect, 1);
 
             spriteBatch.Draw(ContentManager.Instance.PlayerLegAnimations[_currentAnimation][_currFrame], new Vector2(Position.X, Position.Y),
