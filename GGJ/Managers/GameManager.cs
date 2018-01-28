@@ -9,6 +9,7 @@ using GGJ.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace GGJ.Managers {
 
@@ -19,13 +20,11 @@ namespace GGJ.Managers {
 
         public static GameManager Instance => _instance ?? (_instance = new GameManager());
 
-        public Rectangle MouseRect = new Rectangle(0, 0, 1, 1);
+        public Rectangle MouseRect = new Rectangle(- 50, -50, 1, 1);
         public MouseState MouseState;
         public MouseState LastMouseState;
 
-        public const sbyte CurrentStoryLine = 0;
-
-        public bool Debugging;
+        public sbyte CurrentStoryLine = 0;
 
         public GameScreen GameScreen;
         public GameObject ActiveObject;
@@ -38,7 +37,18 @@ namespace GGJ.Managers {
         public KeyboardState KeyState;
         public KeyboardState LastKeyState;
 
+        public int TotalRadioUse = 0;
+        public int TotalToiletUse = 0;
+        public int FoodEaten = 0;
+        public int DrankTimes = 0;
+        public int TimesSlept = 0;
+
         public int CurrentDay = 0;
+
+        public void Reset()
+        {
+            _instance = new GameManager();
+        }
 
         public void Update()
         {
@@ -47,6 +57,23 @@ namespace GGJ.Managers {
             MouseRect.X = MouseState.X;
             MouseRect.Y = MouseState.Y;
 
+            if (ScreenManager.Instance.CurrentScreen != null)
+            {
+                var t = ScreenManager.Instance.CurrentScreen.GetType();
+                if (t != typeof(GameScreen) && ScreenManager.Instance.NextScreen.GetType() != typeof(GameScreen)
+                    && t != typeof(EndScreen) && ScreenManager.Instance.NextScreen.GetType() != typeof(EndScreen))
+                {
+                    if (MediaPlayer.Volume - 0.01f >= 0)
+                    {
+                        MediaPlayer.Volume -= 0.01f;
+                    }
+                    else
+                    {
+                        MediaPlayer.Volume = 0;
+                    }
+                }
+
+            }
 
             if (!ScreenManager.Instance.Changing)
             {

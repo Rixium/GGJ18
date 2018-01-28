@@ -16,9 +16,31 @@ namespace GGJ.Games.Players
         public sbyte Thirst = 0;
         public sbyte MaxThirst = 100;
 
-        public bool Maxed()
+        public byte Maxed()
         {
-            return (Hunger >= 100) || (Bladder >= 100) || (Thirst >= 100) || (Sanity <= 0);
+            byte numMaxed = 0;
+
+            if (Hunger >= 100)
+            {
+                numMaxed++;
+            }
+
+            if (Bladder >= 100)
+            {
+                numMaxed++;
+            }
+
+            if (Thirst >= 100)
+            {
+                numMaxed++;
+            }
+
+            if (Sanity <= 0)
+            {
+                numMaxed++;
+            }
+
+            return numMaxed;
         }
 
         public void AddHealth(float val)

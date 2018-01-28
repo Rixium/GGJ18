@@ -13,12 +13,14 @@ namespace GGJ.Games.Objects {
 
         public override string ToString()
         {
-            return "Sleep [" + KeyBindings.USE + "]";
+            return "Sleep [" + KeyBindings.Use + "]";
         }
 
         public override void Use()
         {
             GameManager.Instance.GameScreen.NextDay();
+            ContentManager.Instance.Bed.Play(GameConstants.SoundLevel, 0, 0);
+            GameManager.Instance.TimesSlept++;
         }
 
     }

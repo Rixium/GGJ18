@@ -20,6 +20,7 @@ namespace GGJ.Games {
         private short _waitTimer = 0;
         private const short _maxWait = 100;
 
+        public bool IsShowing;
 
         private readonly float _textWidth;
         private readonly float _textHeight;
@@ -44,6 +45,7 @@ namespace GGJ.Games {
                 else
                 {
                     _fadeIn = false;
+                    IsShowing = true;
                     _waitTimer = _maxWait;
                 }
             } else if (_fadeOut && _shouldFadeOut)

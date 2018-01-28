@@ -5,12 +5,14 @@ namespace GGJ.Constants {
     internal class KeyBindings
     {
 
-        public static Keys LEFT = Keys.A;
-        public static Keys RIGHT = Keys.D;
-        public static Keys UP = Keys.W;
-        public static Keys DOWN = Keys.S;
+        public static Keys Left = Keys.A;
+        public static Keys Right = Keys.D;
+        public static Keys Up = Keys.W;
+        public static Keys Down = Keys.S;
 
-        public static Keys USE = Keys.E;
+        public static Keys Pause = Keys.Escape;
+
+        public static Keys Use = Keys.E;
 
     }
 

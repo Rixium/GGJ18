@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GGJ.Constants;
+﻿using GGJ.Constants;
 using GGJ.Managers;
 using Microsoft.Xna.Framework;
 
@@ -17,13 +12,15 @@ namespace GGJ.Games.Objects {
         }
 
         public override string ToString() {
-            return "Use [" + KeyBindings.USE + "]";
+            return "Use [" + KeyBindings.Use + "]";
         }
 
 
         public override void Use()
         {
-            GameManager.Instance.GameScreen.StartUsing(this);
+            if (!GameManager.Instance.GameScreen.StartUsing(this)) return;
+            GameManager.Instance.TotalToiletUse++;
+            ContentManager.Instance.Toilet.Play();
         }
     }
 

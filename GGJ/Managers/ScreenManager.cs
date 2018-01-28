@@ -22,6 +22,7 @@ namespace GGJ.Managers {
         public void ChangeScreen(Screen screen)
         {
             NextScreen = screen;
+            ContentManager.Instance.ActiveMouse = ContentManager.MouseType.Pointer;
             Changed = false;
             Changing = true;
         }
@@ -29,6 +30,7 @@ namespace GGJ.Managers {
         public void ActivateNextScreen()
         {
             CurrentScreen = NextScreen;
+            ContentManager.Instance.ActiveMouse = ContentManager.MouseType.Pointer;
             Changed = true;
         }
 

@@ -5,13 +5,13 @@
         public static int GameWidth = 1280;
         public static int GameHeight = 720;
 
-        public static sbyte SleepSanity = 20;
+        public static sbyte SleepSanity = 30;
         public static sbyte SleepThirst = 20;
         public static sbyte SleepHunger = 12;
         public static sbyte SleepBladder = 15;
 
         public static sbyte UrinationThirstSpeed = 1;
-        public static sbyte EatThirstSpeed = 2;
+        public static sbyte EatThirstSpeed = 1;
 
         public static sbyte DrinkBladder = 1;
 
@@ -24,6 +24,12 @@
         public static sbyte DrinkSpeed = -4;
 
         public static sbyte EndDayMaxedHealthChange = -20;
+
+        public static float MusicLevel = 0.3f;
+        public static float SoundLevel = 0.8f;
+        public static float Difficulty = 0.8f;
+
+        public static sbyte StoryChance = 30;
 
     }
 }

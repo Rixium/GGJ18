@@ -13,12 +13,17 @@ namespace GGJ.Games.Objects {
 
         public override string ToString()
         {
-            return "Drink [" + KeyBindings.USE + "]";
+            return "Drink [" + KeyBindings.Use + "]";
         }
 
         public override void Use()
         {
-            GameManager.Instance.GameScreen.StartUsing(this);
+            if (GameManager.Instance.GameScreen.StartUsing(this))
+            {
+
+                GameManager.Instance.DrankTimes++;
+                ContentManager.Instance.Drink.Play(GameConstants.SoundLevel, 0, 0);
+            }
         }
     }
 

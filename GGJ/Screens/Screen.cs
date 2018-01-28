@@ -2,11 +2,14 @@
 
 namespace GGJ.Screens {
 
-    internal class Screen {
+    internal class Screen
+    {
 
-        public Screen()
+        public Game1 Game;
+
+        public Screen(Game1 game)
         {
-
+            Game = game;
         }
 
         public virtual void Update()

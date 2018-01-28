@@ -31,25 +31,28 @@ namespace GGJ.Games.Objects {
         }
 
         public override string ToString() {
-            return "Eat [" + KeyBindings.USE + "]";
+            return "Eat [" + KeyBindings.Use + "]";
         }
 
 
         public override void Use()
         {
-            if (GameManager.Instance.GameScreen.StartUsing(this))
+            if (!GameManager.Instance.GameScreen.StartUsing(this)) return;
+
+            ContentManager.Instance.Eat.Play(GameConstants.SoundLevel, 0, 0);
+
+            _foodCount--;
+
+            GameManager.Instance.FoodEaten++;
+
+            if (_activeFoodImage < ContentManager.Instance.Food.Length - 1)
             {
-                _foodCount--;
+                _activeFoodImage++;
+            }
 
-                if (_activeFoodImage < ContentManager.Instance.Food.Length - 1)
-                {
-                    _activeFoodImage++;
-                }
-
-                if (_foodCount == 0)
-                {
-                    Destroy = true;
-                }
+            if (_foodCount == 0)
+            {
+                Destroy = true;
             }
         }
     }

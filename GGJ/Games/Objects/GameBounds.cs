@@ -17,11 +17,6 @@ namespace GGJ.Games.Objects {
 
         public override void Paint(SpriteBatch spriteBatch)
         {
-
-            if (GameManager.Instance.Debugging)
-            {
-                spriteBatch.Draw(ContentManager.Instance.Pixel, _rect, Color.Red * 0.5f);
-            }
         }
 
         public override void Update()

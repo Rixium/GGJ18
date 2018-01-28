@@ -28,7 +28,7 @@ namespace GGJ
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Window.Title = "Stranger";
+            Window.Title = "Strangers";
             graphics.PreferredBackBufferWidth = GameConstants.GameWidth;
             graphics.PreferredBackBufferHeight = GameConstants.GameHeight;
             graphics.ApplyChanges();
@@ -36,18 +36,20 @@ namespace GGJ
             ContentManager.Instance.Load(Content);
             
             // Starting menu screen.
-            ScreenManager.Instance.ChangeScreen(new MenuScreen());
+            ScreenManager.Instance.ChangeScreen(new SplashScreen(this));
         }
 
         protected override void UnloadContent()
         {
         }
 
+        public void Quit()
+        {
+            Exit();
+        }
+
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             GameManager.Instance.Update();
 
             base.Update(gameTime);

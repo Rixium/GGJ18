@@ -34,10 +34,10 @@ namespace GGJ.Games.Players
         private short _hungerTick;
         private short _bladderTick;
 
-        private const short _maxSanityTime = 80;
-        private const short _maxThirstTime = 120;
-        private const short _maxHungerTime = 150;
-        private const short _maxBladderTime = 180;
+        private readonly short _maxSanityTime = (short)(80 / GameConstants.Difficulty);
+        private readonly short _maxThirstTime = (short)(120 / GameConstants.Difficulty);
+        private readonly short _maxHungerTime = (short)(75 / GameConstants.Difficulty);
+        private readonly short _maxBladderTime = (short)(180 / GameConstants.Difficulty);
 
         private bool wasRight = false;
 
@@ -45,7 +45,7 @@ namespace GGJ.Games.Players
 
         public Player()
         {
-            Position = new Vector2(820, 270);
+            Position = new Vector2(916, 285);
         }
 
         public Rectangle Bounds => new Rectangle((int) Position.X,
@@ -150,7 +150,7 @@ namespace GGJ.Games.Players
             if (_sanityTick == 0)
             {   
                 _sanityTick = _maxSanityTime;
-                Stats.AddSanity(-1);
+                Stats.AddSanity((sbyte)-MathHelper.Clamp((GameManager.Instance.CurrentDay / 5 + 1), 1, 2));
             }
             else
             {
@@ -164,13 +164,13 @@ namespace GGJ.Games.Players
                     if (GameManager.Instance.UsingObject.ObjectType != ContentManager.ObjectType.Food)
                     {
                         _hungerTick = _maxHungerTime;
-                        Stats.AddHunger(1);
+                        Stats.AddHunger(2);
                     }
                 }
                 else
                 {
                     _hungerTick = _maxHungerTime;
-                    Stats.AddHunger(1);
+                    Stats.AddHunger(2);
                 }
             }
             else
@@ -220,14 +220,15 @@ namespace GGJ.Games.Players
                 _thirstTick--;
             }
 
-            if (Stats.Maxed())
-            {
-                Stats.AddHealth(-0.01f);
+            var numMaxed = Stats.Maxed();
 
-                if (Stats.Health <= 0)
-                {
-                    ScreenManager.Instance.ChangeScreen(new EndScreen(false));
-                }
+            if (numMaxed == 0) return;
+
+            Stats.AddHealth(-0.01f * numMaxed);
+
+            if (Stats.Health <= 0)
+            {
+                ScreenManager.Instance.ChangeScreen(new EndScreen(ScreenManager.Instance.CurrentScreen.Game, false));
             }
 
         }
@@ -240,22 +241,22 @@ namespace GGJ.Games.Players
         }
         private void CheckMovement()
         {
-            if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.LEFT))
+            if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.Left))
             {
                 _currentXVelocity -= _velocityChange;
                 wasRight = false;
             }
-            else if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.RIGHT))
+            else if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.Right))
             {
                 _currentXVelocity += _velocityChange;
                 wasRight = true;
             }
 
-            if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.UP))
+            if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.Up))
             {
                 _currentYVelocity -= _velocityChange;
             }
-            else if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.DOWN))
+            else if (GameManager.Instance.KeyState.IsKeyDown(KeyBindings.Down))
             {
                 _currentYVelocity += _velocityChange;
             }
@@ -290,6 +291,7 @@ namespace GGJ.Games.Players
 
 
             if (GameManager.Instance.UsingObject == null) return;
+            if (GameManager.Instance.UsingObject.ObjectType == ContentManager.ObjectType.Radio) return;
 
             var statusRect = new Rectangle((int)Position.X + Bounds.Width / 2 - 50, (int)Position.Y - 20, 100, 15);
             sbyte statusValue = 0;

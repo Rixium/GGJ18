@@ -11,10 +11,11 @@ namespace GGJ.UI {
 
     internal class Button {
 
-        public enum ButtonTag
-        {
+        public enum ButtonTag {
             Start,
-            Options
+            Options,
+            Finish,
+            HowToPlay
         }
 
         public ButtonTag Tag;
@@ -30,8 +31,7 @@ namespace GGJ.UI {
 
         private bool _hovering;
 
-        public Button(string text, Vector2 pos, Color backgroundColor, Color fontColor,  ButtonTag tag)
-        {
+        public Button(string text, Vector2 pos, Color backgroundColor, Color fontColor, ButtonTag tag) {
             _text = text;
             _backgroundColor = backgroundColor;
             _fontColor = fontColor;
@@ -41,38 +41,32 @@ namespace GGJ.UI {
             _textWidth = (int)ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui].MeasureString(_text).X;
             _textHeight = (int)ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui].MeasureString(_text).Y;
 
-            
-            Bounds = new Rectangle((int)pos.X, (int)pos.Y, (int)((_buttonPadding * 2) + _textWidth), (int)((_buttonPadding * 2) + _textHeight));
+
+            Bounds = new Rectangle((int)pos.X, (int)pos.Y, ((_buttonPadding * 2) + _textWidth), ((_buttonPadding * 2) + _textHeight));
         }
 
-        public void Update()
-        {
+        public void Update() {
 
         }
 
         public Rectangle Bounds { get; }
 
-        public bool Hovering
-        {
+        public bool Hovering {
             get => _hovering;
-            set
-            {
-                if (!_hovering && value)
-                {
-                    ContentManager.Instance.MenuBlip.Play();
+            set {
+                if (!_hovering && value) {
+                    ContentManager.Instance.MenuBlip.Play(GameConstants.SoundLevel, 0, 0);
                 }
 
                 _hovering = value;
             }
         }
 
-        public void Paint(SpriteBatch spriteBatch)
-        {
+        public void Paint(SpriteBatch spriteBatch) {
             spriteBatch.Draw(ContentManager.Instance.Pixel, Bounds, _backgroundColor);
             spriteBatch.DrawString(ContentManager.Instance.Fonts[ContentManager.FontTypes.Ui], _text, new Vector2(Bounds.X + _buttonPadding, Bounds.Y + _buttonPadding), _fontColor);
 
-            if (Hovering)
-            {
+            if (Hovering) {
                 spriteBatch.Draw(ContentManager.Instance.Pixel, Bounds, Color.Black * 0.3f);
             }
         }

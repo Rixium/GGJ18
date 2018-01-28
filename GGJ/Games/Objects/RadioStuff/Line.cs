@@ -8,13 +8,13 @@ namespace GGJ.Games.Objects.RadioStuff {
 
     internal class Line
     {
-        private sbyte _sanityVal;
-        private string _text;
+        public sbyte SanityValue;
+        public string Text;
 
         public Line(string text, sbyte sanityVal)
         {
-            _text = text;
-            _sanityVal = sanityVal;
+            Text = text;
+            SanityValue = sanityVal;
         }
 
     }

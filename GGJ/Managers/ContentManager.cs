@@ -21,7 +21,8 @@ namespace GGJ.Managers {
         public enum FontTypes
         {
             Ui,
-            Game
+            Game,
+            TitleFont
         }
 
         public enum MouseType
@@ -53,6 +54,8 @@ namespace GGJ.Managers {
         public Texture2D Pixel;
         public Texture2D Shadow;
         public Texture2D Noise;
+        public Texture2D RadioSpeech;
+        public Texture2D Splash;
 
         // Dictionaries.
         public Dictionary<FontTypes, SpriteFont> Fonts = new Dictionary<FontTypes, SpriteFont>();
@@ -69,7 +72,7 @@ namespace GGJ.Managers {
         public List<Line> storyLines = new List<Line>();
 
         public Texture2D[] Food = new Texture2D[16];
-        public Texture2D[] PlayerHeads = new Texture2D[6];
+        public Texture2D[] PlayerHeads = new Texture2D[5];
 
         // Scene
         public Texture2D Room;
@@ -80,6 +83,12 @@ namespace GGJ.Managers {
         
         // Sounds
         public SoundEffect MenuBlip;
+        public SoundEffect Eat;
+        public SoundEffect Drink;
+        public SoundEffect Toilet;
+        public SoundEffect Radio;
+        public SoundEffect Bed;
+
 
         // Music
         public Song Theme;
@@ -96,6 +105,7 @@ namespace GGJ.Managers {
 
             Fonts.Add(FontTypes.Ui, _content.Load<SpriteFont>("Fonts/MenuFont"));
             Fonts.Add(FontTypes.Game, _content.Load<SpriteFont>("Fonts/GameFont"));
+            Fonts.Add(FontTypes.TitleFont, _content.Load<SpriteFont>("Fonts/TitleFont"));
 
             Mice.Add(MouseType.Pointer, _content.Load<Texture2D>("Textures/Other/Cursors/mainCursor"));
             Mice.Add(MouseType.Hand, _content.Load<Texture2D>("Textures/Other/Cursors/handCursor"));
@@ -109,6 +119,11 @@ namespace GGJ.Managers {
             Objects.Add(ObjectType.Water, _content.Load<Texture2D>("Textures/Objects/sink"));
 
             MenuBlip = _content.Load<SoundEffect>("Sounds/menuBlip");
+            Eat = _content.Load<SoundEffect>("Sounds/eat");
+            Drink = _content.Load<SoundEffect>("Sounds/drink");
+            Radio = _content.Load<SoundEffect>("Sounds/radio");
+            Toilet = _content.Load<SoundEffect>("Sounds/toilet");
+            Bed = _content.Load<SoundEffect>("Sounds/bed");
 
             var idleLegAnimationFrames = new[]
             {
@@ -144,7 +159,7 @@ namespace GGJ.Managers {
             }
 
 
-            for (var i = 1; i < PlayerHeads.Length; i++)
+            for (var i = 1; i <= PlayerHeads.Length; i++)
             {
                 PlayerHeads[i - 1] = _content.Load<Texture2D>("Textures/Man/Head/head" + i);
             }
@@ -162,6 +177,51 @@ namespace GGJ.Managers {
             Shadow = _content.Load<Texture2D>("Textures/Other/shadow");
             Theme = content.Load<Song>("Music/theme");
             Noise = _content.Load<Texture2D>("Textures/Other/noise");
+
+            talkLines.Add(new Line("Hello..? Please..? Anybody..?", -5));
+            talkLines.Add(new Line("...", -5));
+            talkLines.Add(new Line("*static*", -5));
+            talkLines.Add(new Line("We're safe, Don't worry. You'll be safe too.", 10));
+            talkLines.Add(new Line("Can anybody hear me? Don't go outside.", -5));
+            talkLines.Add(new Line("Help, HELP!", -10));
+            talkLines.Add(new Line("I feel hope.", 5));
+            talkLines.Add(new Line("If you hear me, I love you.", 5));
+            talkLines.Add(new Line("I'm here, darling.", 2));
+            talkLines.Add(new Line("Mummy, I can't see. It's dark.", -10));
+            talkLines.Add(new Line("We're all gonna die.", -10));
+            talkLines.Add(new Line("We're starving!", -10));
+            talkLines.Add(new Line("I can't see a way out of this.", -5));
+            talkLines.Add(new Line("Look to the future.", 10));
+            talkLines.Add(new Line("May god be with us.", 10));
+            talkLines.Add(new Line("Keep sane.", -5));
+            talkLines.Add(new Line("She's gone, Oh god, No, Please.", -10));
+            talkLines.Add(new Line("God will save us.", 10));
+            talkLines.Add(new Line("We're all gonna die.", -10));
+            talkLines.Add(new Line("Don't worry.", 5));
+            talkLines.Add(new Line("Daddy? I don't know how to use this.", -10));
+            talkLines.Add(new Line("We can survive this.", 10));
+
+            storyLines.Add(new Line("Nationwide military dispatched to handle catastrophic event.", 5));
+            storyLines.Add(new Line("People advised to stay underground, until further notice.", -5));
+            storyLines.Add(new Line("Contamination is thought be contained, but unknown yet.", -5));
+            storyLines.Add(new Line("Several military units lost in severe viral attack.", -10));
+            storyLines.Add(new Line("We're transmitting this message in hope that everyone stays underground.", 0));
+            storyLines.Add(new Line("Do not leave your bunker, no matter what.", -5));
+            storyLines.Add(new Line("The end is near, units have spread controlled.", 5));
+            storyLines.Add(new Line("Local areas contained, but virus still active.", -5));
+            storyLines.Add(new Line("A potential cure has been discovered.", 20));
+            storyLines.Add(new Line("Cure proven ineffective, await further notice.", -25));
+            storyLines.Add(new Line("Miltary withdrawn from north, as remaining infected eliminated.", 10));
+            storyLines.Add(new Line("New medicine testing underway.", 8));
+            storyLines.Add(new Line("New medicine looking effective as test subject condition improves.", 15));
+            storyLines.Add(new Line("Government forsee problem will be solved within the year.", -30));
+            storyLines.Add(new Line("New technology will be used in mass treatment.", 15));
+            storyLines.Add(new Line("Widespread treatment has began.", 10));
+            storyLines.Add(new Line("Military are checking area for any remaining infected.", 5));
+            storyLines.Add(new Line("The virus has been eliminated, it's safe.. you can come out.", 100));
+
+            RadioSpeech = _content.Load<Texture2D>("Textures/Other/radioSpeech");
+            Splash = _content.Load<Texture2D>("Textures/Other/splash");
         }
     }
 }
